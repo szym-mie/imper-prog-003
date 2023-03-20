@@ -40,7 +40,7 @@ void two_dice_probab_distrib(double distrib[], int throws_num) {
 	int counts[OUTCOMES];
 	for (size_t i = 0; i < throws_num; i++)
 	{
-		counts[rand() % OUTCOMES]++;
+		counts[rand() % 6 + rand() % 6]++;
 	}
 
 	for (size_t i = 0; i < OUTCOMES; i++)
@@ -71,7 +71,7 @@ void print_histogram(const double tab[], size_t n, int x_start, double y_scale, 
 	{
 		size_t marks = tab[i] / y_scale;
 		size_t ptr_diff = bar_len - marks - 1;
-		printf("%-2zu | %s %.3f\n", i + x_start, bar+ptr_diff, tab[i]);
+		printf("%2zu | %s %.3f\n", i + x_start, bar+ptr_diff, tab[i]);
 	}
 }
 
@@ -126,6 +126,8 @@ int main(void) {
     size_t n;
     double dtab[N_MAX], two_dice_tab[11];
     char mark;
+    setbuf(stdout, NULL); // prevent buffering - don't want to fflush every printf
+			  // windows still doesn't work (don't feel like VS2022)
     if (TEST) printf("Numer testu [1, 7]: ");
     scanf("%d", &to_do);
     if(to_do > 1) {
