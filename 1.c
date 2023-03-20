@@ -73,6 +73,8 @@ void print_histogram(const double tab[], size_t n, int x_start, double y_scale, 
 		size_t ptr_diff = bar_len - marks - 1;
 		printf("%2zu | %s %.3f\n", i + x_start, bar+ptr_diff, tab[i]);
 	}
+
+	free(bar);
 }
 
 
