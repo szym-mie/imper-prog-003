@@ -33,7 +33,7 @@ aver_varian(const double tab[], size_t n, double *arith_average, double *varianc
 void 
 bernoulli_gen(int tab[], size_t n, double probab) 
 {
-	double limit = probab * (RAND_MAX + 1);
+	double limit = probab * ((double)RAND_MAX + 1);
 	for (size_t i = 0; i < n; i++)
 		tab[i] = rand() < limit;
 }
