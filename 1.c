@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <ctype.h>
+#include <math.h>
 
 #define N_MAX 100000   // maksymalna liczba prób
 #define TEST 1         // 1 - ulatwia testowanie programu, 0 - dla automatycznej oceny
@@ -82,7 +83,7 @@ print_histogram(const double tab[], size_t n, int x_start, double y_scale, char 
 
 	for (size_t i = 0; i < n; i++)
 	{
-		size_t marks = tab[i] / y_scale;
+		size_t marks = roundf(tab[i] / y_scale);
 		size_t ptr_diff = bar_len - marks - 1;
 		printf("%2zu | %s %.3f\n", i + x_start, bar+ptr_diff, tab[i]);
 	}
