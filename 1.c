@@ -7,7 +7,9 @@
 #define TEST 1         // 1 - ulatwia testowanie programu, 0 - dla automatycznej oceny
 
 // Oblicza wartość średniej arytmetycznej oraz wariancji próby losowej
-void aver_varian(const double tab[], size_t n, double *arith_average, double *variance) {
+void 
+aver_varian(const double tab[], size_t n, double *arith_average, double *variance) 
+{
 	double asum = 0;
 	
 	for (size_t i = 0; i < n; i++)
@@ -28,7 +30,12 @@ void aver_varian(const double tab[], size_t n, double *arith_average, double *va
 
 // Wypełnia tablicę tab wynikami n prób Bernoulliego
 // 1 - sukces; 0 - porażka
-void bernoulli_gen(int tab[], size_t n, double probab) {
+void 
+bernoulli_gen(int tab[], size_t n, double probab) 
+{
+	double limit = probab * (RAND_MAX + 1);
+	for (size_t i = 0; i < n; i++)
+		tab[i] = rand() < limit;
 }
 
 // Dyskretny rozkład prawdopodobieństwa zmiennej losowej - sumy oczek dwóch kostek do gry.
@@ -36,7 +43,9 @@ void bernoulli_gen(int tab[], size_t n, double probab) {
 // throws_num - liczba rzutów (jeden rzut to rzut dwoma kostkami).
 // Funkcja zapisuje obliczony rozkład w początkowych elementach tablicy tab.
 #define OUTCOMES 11
-void two_dice_probab_distrib(double distrib[], int throws_num) {
+void
+two_dice_probab_distrib(double distrib[], int throws_num) 
+{
 	int counts[OUTCOMES];
 	for (size_t i = 0; i < throws_num; i++)
 	{
@@ -48,7 +57,9 @@ void two_dice_probab_distrib(double distrib[], int throws_num) {
 }
 
 // Oblicza i zwraca Dystrybuantę (Cumulative Distribution Function)
-void cum_discret_distrib(double distrib[], size_t n) {
+void 
+cum_discret_distrib(double distrib[], size_t n) 
+{
 	double csum = 0;
 	for (size_t i = 0; i < n; i++)
 		distrib[i] = (csum += distrib[i]);
@@ -57,7 +68,9 @@ void cum_discret_distrib(double distrib[], size_t n) {
 // Histogram - wykres "słupkowy" wartości funkcji zapisanych w tablicy tab o długości n,
 // x_start - wartość pierwszej danej (założenie: przyrost zmiennej niezależnej=1),
 // y_scale - wartość zmiennej zależnej odpowiadającej szerokości jednego znaku na wykresie,
-void print_histogram(const double tab[], size_t n, int x_start, double y_scale, char mark) {
+void 
+print_histogram(const double tab[], size_t n, int x_start, double y_scale, char mark) 
+{
 	// assume no value is grater than 1 (can calculate max length of bar)
 	size_t bar_len = (size_t) 1 / y_scale + 2;  // + 2 to ensure float inaccuracy + NUL sign
 	char *bar = malloc(bar_len);	
@@ -87,7 +100,19 @@ void print_histogram(const double tab[], size_t n, int x_start, double y_scale, 
 // Założenie: Funkcja wywołuje generator rand dokładnie 2 razy.
 //            Pierwsze losowanie: nr drzwi, za którymi jest nagroda.
 //            Drugie losowanie: nr drzwi w pierwszym wyborze gracza.
-void monty_hall(int *p_switch_wins, int *p_nonswitch_wins, int n) {
+void 
+monty_hall(int *p_switch_wins, int *p_nonswitch_wins, int n) 
+{
+	int prize_door, picked_door;
+	
+	for (size_t i = 0; i < n; i++)
+	{
+		prize_door = rand() % 3;
+		picked_door = rand() % 3;
+
+		*p_switch_wins += prize_door != picked_door;
+		*p_nonswitch_wins += prize_door == picked_door;
+	}
 }
 
 // read double vector of size n
